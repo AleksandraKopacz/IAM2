@@ -1,213 +1,185 @@
-<?php if (!isset($_SESSION))
-	session_start();
+<?php
+if (!isset($_SESSION))
+  session_start();
 include $conf->root_path . '/view/header.php';
 ?>
 
+<style>
+  .red {
+    color: red !important;
+  }
+</style>
+
 <div class="container">
-	<form>
-		<div class="row">
-			<div class="col">
-				<label for="name" class="form-label">Imię</label>
-				<input type="text" class="form-control" placeholder="Podaj imię" aria-label="Podaj imię" id="name">
-				<p id="invalidName"></p>
-			</div>
-			<div class="col">
-				<label for="surname" class="form-label">Nazwisko</label>
-				<input type="text" class="form-control" placeholder="Podaj nazwisko" aria-label="Podaj nazwisko"
-					id="surname">
-				<p id="invalidSurname"></p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<label for="city" class="form-label">Miasto</label>
-				<input type="text" class="form-control" placeholder="Podaj miejsce zamieszkania"
-					aria-label="Podaj miejsce zamieszkania" id="city">
-				<p id="invalidCity"></p>
-			</div>
-			<div class="col">
-				<label for="yob" class="form-label">Rok urodzenia</label>
-				<input type="text" class="form-control" placeholder="Podaj rok urodzenia"
-					aria-label="Podaj rok urodzenia" id="yob">
-				<p id="invalidYOB"></p>
-			</div>
-		</div>
-		<div class="row">
-			<label for="email" class="form-label">Email</label>
-			<input type="text" class="form-control" placeholder="Podaj  adres email" aria-label="Podaj adres email"
-				id="email">
-			<p id="invalidEmail"></p>
-		</div>
-		<div class="row">
-			<label for="phone" class="form-label">Telefon</label>
-			<input type="text" class="form-control" placeholder="Podaj numer telefonu" aria-label="Podaj numer telefonu"
-				id="phone">
-			<p id="invalidPhone"></p>
-		</div>
-		<button id="create" type="submit" class="btn btn-primary">Utwórz nowe konto</button>
-	</form>
-	<div id="errors" role="alert"></div>
+  <div class="col-lg-10 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1">
+
+    <div class="row">
+      <!-- Blog Post Content Column -->
+      <div class="col-lg-8">
+        <!-- Blog Post -->
+        <!-- Title -->
+        <h1>Blog Post Title</h1>
+
+        <hr>
+        <!-- Date/Time -->
+        <p>
+          <span class="glyphicon glyphicon-time"></span>
+          Posted on August 24, 2013 at 9:00 PM
+        </p>
+        <hr>
+        <!-- Preview Image -->
+        <img class="img-responsive" src="http://placehold.it/900x300" alt="">
+        <hr>
+        <!-- Post Content -->
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error
+          quam sapiente nemo saepe quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus
+          inventore?</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste
+          ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius
+          illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!
+        </p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat
+          totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam
+          tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui,
+          necessitatibus, est!</p>
+        <hr>
+        <!-- Blog Comments -->
+        <!-- Comments Form -->
+        <div>
+          <h4>Napisz komentarz:</h4>
+          <form id="form">
+            <div class="form-group">
+              <label>Wiadomość</label>
+              <textarea id="msg" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Autor</label>
+              <input type="text" placeholder="Podaj swoje imię lub pseudonim" id="nick" class="form-control">
+            </div>
+            <div class="alert alert-danger" id="msg_brak" role="alert"><strong>Błąd!</strong> Nie wypełniono wszystkich
+              pól.</div>
+            <button id="btn" type="submit" class="btn btn-primary">Wyślij</button>
+          </form>
+        </div>
+        <hr>
+        <!-- Posted Comments -->
+        <!-- Comment -->
+        <div id="comm">
+
+          <div class="media" id="0">
+            <a class="pull-left" href="#">
+              <img class="media-object" src="http://placehold.it/64x64" alt="">
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading">
+                Test
+
+                <small>01 stycznia 2015</small> <button onclick="deleteComm(0)" class="btn btn-danger">Usuń</button>
+              </h4>
+
+              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras
+              purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+              fringilla. Donec lacinia congue felis in faucibus.
+
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+</div>
 </div>
 
 <script>
-	$("form").on("submit", function (event) {
-		event.preventDefault();
-		clearErrors();
-		if (validateForm()) {
-			$("#errors").addClass("alert alert-warning");
-			$("#errors").text("Formularz zawiera błędy");
-		} else {
-			$("#errors").addClass("alert alert-primary");
-			$("#errors").append("<p>Imie:" + $("#name").val() +
-				"</p><p>Nazwisko:</p>" + $("#surname").val() +
-				"</p><p>Miasto:" + $("#city").val() +
-				"</p><p>Rok urodzenia:" + $("#yob").val() +
-				"</p><p>Email:" + $("#email").val() +
-				"</p><p>Telefon:" + $("#phone").val() + "</p>");
-		}
-	});
 
-	function validateForm() {
-		let error = false;
+  function isEmail(email) {
+    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+  }
+  function isPhone(phone) {
+    var regex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
+    return regex.test(phone);
+  }
 
-		if ($("#name").val() == "") {
-			$("#invalidName").text("Pole wymagane");
-			error = true;
-		}
-		if ($("#surname").val() == "") {
-			$("#invalidSurname").text("Pole wymagane");
-			error = true;
-		}
-		if ($("#city").val() == "") {
-			$("#invalidCity").text("Pole wymagane");
-			error = true;
-		}
-		if ($("#yob").val() == "") {
-			$("#invalidYOB").text("Pole wymagane");
-			error = true;
-		}
-		if ($("#email").val() == "") {
-			$("#invalidEmail").text("Pole wymagane");
-			error = true;
-		}
-		if ($("#phone").val() == "") {
-			$("#invalidPhone").text("Pole wymagane");
-			error = true;
-		}
+  function deleteComm(toDel) {
+    $("#" + toDel).addClass("red").fadeOut('slow', function () {
+      $("this").remove();
+    });
+  }
 
-		if (!$.isNumeric($("#phone").val()) || $("#phone").val().length != 9) {
-			$("#invalidPhone").text("Podaj poprawny numer telefonu");
-			error = true;
-		}
+  $(document).ready(function () {
 
-		if (!$.isNumeric($("#yob").val()) || $("#yob").val().length != 4) {
-			$("#invalidYOB").text("Podaj poprawny rok urodzenia");
-			error = true;
-		}
+    var d = new Date();
+    var day = d.getDate();
+    var month = d.getMonth()
+    var year = d.getFullYear()
+    var hours = d.getHours();
+    var minutes = d.getMinutes();
+    var seconds = d.getSeconds();
 
-		if ($.isNumeric($("#yob").val()) && $("#yob").val() >= 2006 && $("#yob").val().length == 4) {
-			$("#invalidYOB").text("Musisz być pełnoletni");
-			error = true;
-		}
+    $('.alert').hide();
 
-		if (!validateEmail($("#email").val())) {
-			$("#invalidEmail").text("Podaj poprawny adres email");
-			error = true;
-		}
+    $("#form").submit(function (event) {
+      event.preventDefault();
+      if ($("#nick").val() === "" || $("#msg").val() === "") {
+        $('.alert').slideDown("fast");
+      } else {
+        $('.alert').slideUp("fast");
+        var date = $.convertDate(year + '-' + month + '-' + day);
+        var username = $("#nick").val();
+        var msg = $("#msg").val();
+        var id = (Date.now() * Math.floor(Math.random() * 100) + 1)
 
-		if (!checkAlphabets($("#name").val())) {
-			$("#invalidName").text("Podaj poprawne imię");
-			error = true;
-		}
+        var newComm = "<div class='media' id='" + id + "'><a class='pull-left' href='#'><img class='media-object' src='' alt=''></a><div class='media-body'><h4 class='media-heading'>" +
+          username
+          + " " +
+          "<small>" +
+          date
+          + "</small> <button id='delete' type='button' class='btn btn-danger' onclick='deleteComm(" + id + ")'>Usuń</button></h4 >" +
+          msg
+          + "</div ></div > "
+        $('#comm').prepend(
+          $(newComm).hide().fadeIn('slow')
+        );
+      }
+    });
+  });
 
-		if (!checkAlphabets($("#surname").val())) {
-			$("#invalidSurname").text("Podaj poprawne nazwisko");
-			error = true;
-		}
-		return error;
-	}
+  jQuery.extend({
+    convertDate: function (mysqlDate) {
+      var stringParts = mysqlDate.split("-");
+      var output = '';
+      $.each(stringParts, function (key, line) {
+        var month = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
+        if (stringParts[2].length > 1 && stringParts[2].charAt(0) == 0) {
+          if (stringParts[2] < 10) {
+            output = stringParts[2] + ' ' + month[stringParts[1]] + ' ' + stringParts[0];
+          }
+          else {
+            output = stringParts[2] + ' ' + month[stringParts[1]] + ' ' + stringParts[0];
+          }
+        }
+        else if (stringParts[2] < 10) {
+          var day = '0' + stringParts[2];
+          output = day + ' ' + month[stringParts[1]] + ' ' + stringParts[0];
+        }
+        else {
+          var day = stringParts[2];
+          output = day + ' ' + month[stringParts[1]] + ' ' + stringParts[0];
+        }
 
-	function validateEmail($email) {
-		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-		return emailReg.test($email);
-	}
-
-	function checkAlphabets(input) {
-		for (const char of input) {
-			if (!(char >= "a" && char <= "z") &&
-				!(char >= "A" && char <= "Z")) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	function clearErrors() {
-		$("#invalidName").text("");
-		$("#invalidSurname").text("");
-		$("#invalidCity").text("");
-		$("#invalidYOB").text("");
-		$("#invalidEmail").text("");
-		$("#invalidPhone").text("");
-		$("#errors").text("");
-	}
+      });
+      return output;
+    }
+  });
 </script>
-
-<!--<div class="container">
-	   <div class="col-lg-10 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1"> 
-		   <h1>Zadanie 1.</h1>
-		   <div id="text">
-			<p>Akapit 1</p>
-			<p>Akapit 2</p>
-			<p>Akapit 3</p>
-			<p>Akapit 4</p>
-			<p>Akapit 5</p>
-		   </div>
-		<ul id="listaRoslin">
-			<li>Rośliny
-				<ul id="rosliny">
-					<li>Rośliny drzewiaste
-						<ul>
-							<li>drzewa</li>
-							<li>krzewy</li>
-							<li>krzewinki</li>
-						</ul>
-					</li>
-					<li>Rośliny zielne
-						<ul>
-							<li>rośliny jednoroczne</li>
-							<li>rośliny dwuletnie</li>
-							<li>byliny</li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-			<li>Zwierzęta
-				<ul id="zwierzeta">
-					<li>ryby</li>
-					<li>ptaki</li>
-					<li>gady</li>
-					<li>płazy</li>
-					<li>owady</li>
-					<li>ssaki</li>
-				</ul>
-			</li>
-		</ul>   	 
-	</div>
-</div>
-<script>
-$( document ).ready(function() {	
-	$("#text p").addClass('boldRed');
-	$("#text>p:nth-child(2)").replaceWith("<p>Zmieniony tekst dla drugiego elementu</p>");
-	$("#text>p:nth-child(2)").addClass("boldBlue");
-	$("#text p:last-of-type").replaceWith("<p>Zmieniony tekst dla ostatniego elementu</p>");
-	$("#text p:last-of-type").addClass("boldBlue");
-	$("ul:eq(0), ul:eq(2), ul:eq(3)").addClass("no-bullet");
-	$("#rosliny ul li:nth-child(3)").addClass("marked");
-	$("#listaRoslin>li:nth-child(2)").addClass("horizontal-list");
-	$("ul:eq(2)>li, ul:eq(3)>li, #zwierzeta>li").each(function(i){
-		var index = i;
-		$(this).append(" <a href='https://us.edu.pl/'>Link["+index+"]</a>");   
-	});
-});
-</script>-->
