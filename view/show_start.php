@@ -70,8 +70,8 @@ include $conf->root_path . '/view/header.php';
         <div id="comm">
 
           <div class="media" id="0">
-            <a class="pull-left" href="#">
-              <img class="media-object" src="http://placehold.it/64x64" alt="">
+            <a class="pull-left" href="#0">
+              <img class="media-object" src='https://www.shareicon.net/data/256x256/2016/07/05/791221_man_512x512.png' width='64' height='64' alt="">
             </a>
             <div class="media-body">
               <h4 class="media-heading">
@@ -140,7 +140,7 @@ include $conf->root_path . '/view/header.php';
         var msg = $("#msg").val();
         var id = (Date.now() * Math.floor(Math.random() * 100) + 1)
 
-        var newComm = "<div class='media' id='" + id + "'><a class='pull-left' href='#'><img class='media-object' src='' alt=''></a><div class='media-body'><h4 class='media-heading'>" +
+        var newComm = "<div class='media' id='" + id + "'><a class='pull-left' href='#"+id+"'><img class='media-object' src='https://www.shareicon.net/data/256x256/2016/07/05/791221_man_512x512.png' width='64' height='64' alt=''></a><div class='media-body'><h4 class='media-heading'>" +
           username
           + " " +
           "<small>" +
